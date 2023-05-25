@@ -1,14 +1,15 @@
 import {Action, configureStore, ThunkAction} from "@reduxjs/toolkit";
 import {takeEvery} from "redux-saga/effects"
 import createSagaMiddleware from "redux-saga";
-import posts, {GET_POSTS, getPostsSaga} from "../slices/postSlice";
+import posts, {GET_POSTS, getPostsSagaWorker} from "../slices/postSlice";
 
 const sagaMiddleware = createSagaMiddleware()
 
-function* sagas() {
-    yield takeEvery(GET_POSTS, getPostsSaga)
-    yield takeEvery
+function* sagasWatcher() {
+    yield takeEvery(GET_POSTS, getPostsSagaWorker)
+    // yield takeEvery
 }
+
 
 export const store = configureStore({
     reducer: {
@@ -18,7 +19,7 @@ export const store = configureStore({
         getDefaultMiddleware({thunk: false}).concat(sagaMiddleware)
 });
 
-sagaMiddleware.run(sagas)
+sagaMiddleware.run(sagasWatcher)
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
