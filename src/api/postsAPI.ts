@@ -6,9 +6,9 @@ export const instance = axios.create({
 })
 
 export const postsAPI = {
-    getPosts() {
-        return instance.get<ResponseGetPostType>("posts")
-    },
+	getPosts(page: number) {
+		return instance.get<ResponseGetPostType>(`posts?_page=${page}`);
+	},
     getUser() {
         return instance.get<ResponseGetUsersType>("users")
     }
