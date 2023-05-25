@@ -4,15 +4,22 @@ import {put} from "redux-saga/effects";
 
 interface initialStateType {
     posts: ResponseGetPostType[]
+    postsPage: number
 }
 
 const initialState: initialStateType = {
-    posts: []
+    posts: [],
+    postsPage: 1
 }
 
-export function* getPostsSaga(): any {
-    const payload = yield postsAPI.getPosts().then((res) => res.data)
-    yield put(getPostsSuccess(payload))
+export function* getPostsSagaWorker(action: PayloadAction<number>): any {
+    try {
+        const res = yield postsAPI.getPosts(action.payload);
+        const payload = res.data;
+        yield put(getPostsSuccess(payload));
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 const PostsSlice = createSlice({
@@ -20,13 +27,21 @@ const PostsSlice = createSlice({
     initialState,
     reducers: {
         getPostsSuccess: (state, action: PayloadAction<ResponseGetPostType[]>) => {
-            state.posts = action.payload
+            state.posts = action.payload;
+        },
+        nextPage: (state, action: PayloadAction<number>) => {
+            state.postsPage = action.payload += 1
+        },
+        prevPage: (state, action: PayloadAction<number>) => {
+            if (state.postsPage > 1) {
+                state.postsPage = action.payload -= 1
+            }
         }
     }
 })
 
-export const GET_POSTS = "posts/GetPosts"
-export const getPosts = createAction(GET_POSTS)
+export const GET_POSTS = "/postPage"
+export const getPosts = createAction<number>(GET_POSTS);
 
-export const {getPostsSuccess} = PostsSlice.actions
+export const {getPostsSuccess, nextPage, prevPage} = PostsSlice.actions
 export default PostsSlice.reducer
