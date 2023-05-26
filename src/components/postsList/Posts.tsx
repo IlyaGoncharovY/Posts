@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/config/hook";
 import {PostsItem} from "./postItem/PostsItem";
-import {getPosts, nextPage, prevPage} from "../../store/slices/postSlice";
+import {getPostsAC, nextPage, prevPage} from "../../store/slices/postSlice";
 
 export const Posts = () => {
 
@@ -15,7 +15,7 @@ export const Posts = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getPosts(postsPage))
+        dispatch(getPostsAC(postsPage))
     }, [dispatch, postsPage])
 
     const nextPageHandler = () => dispatch(nextPage(postsPage));

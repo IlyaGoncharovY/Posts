@@ -38,7 +38,7 @@ const CommentsSlice = createSlice({
 })
 
 export const GET_COMMENTS = "/commentsPage"
-export const getComments = createAction<number>(GET_COMMENTS);
+export const getCommentsAC = createAction<number>(GET_COMMENTS);
 
 
 export const {getCommentsSuccess, activateCommentsWindow} = CommentsSlice.actions

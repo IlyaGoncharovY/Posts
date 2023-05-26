@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../../store/config/hook";
 import {CommentsItem} from "./CommentsItem";
-import {getComments} from "../../../../store/slices/commentSlice";
+import {getCommentsAC} from "../../../../store/slices/commentSlice";
 
 interface CommentsForItemType {
     postId: number
@@ -14,7 +14,7 @@ export const CommentsForItem: FC<CommentsForItemType> = ({postId}) => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getComments(postId))
+        dispatch(getCommentsAC(postId))
     }, [dispatch, postId])
 
     return (

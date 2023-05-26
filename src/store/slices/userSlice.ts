@@ -31,7 +31,7 @@ const UserSlice = createSlice({
 })
 
 export const GET_USERS = "/userPage"
-export const getUsers = createAction<number>(GET_USERS);
+export const getUsersAC = createAction<number>(GET_USERS);
 
 export const {getUsersSuccess} = UserSlice.actions
 export default UserSlice.reducer
