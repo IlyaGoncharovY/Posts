@@ -5,10 +5,12 @@ import {Posts} from "./components/postsList/Posts";
 import {PATH} from "./utils/path";
 import {AboutMe} from "./components/aboutMe/AboutMe";
 import {InfoUser} from "./components/userDetails/InfoUser";
+import {Header} from "./components/header/Header";
 
 function App() {
     return (
         <div className="App">
+            <Header/>
             <Routes>
                 <Route path={PATH.POST_PAGE} element={<Posts/>}/>
                 <Route path={PATH.ABOUT_ME} element={<AboutMe/>}/>
