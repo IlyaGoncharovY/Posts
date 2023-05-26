@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/config/hook";
-import {PostsItem} from "./PostsItem";
+import {PostsItem} from "./postItem/PostsItem";
 import {getPosts, nextPage, prevPage} from "../../store/slices/postSlice";
 
 export const Posts = () => {
 
     const posts = useAppSelector(state => state.posts.posts)
     const postsPage = useAppSelector(state => state.posts.postsPage)
+
     //limit page number
     const maxPage = 10
     const minPage = 1
