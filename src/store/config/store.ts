@@ -1,7 +1,7 @@
 import {Action, configureStore, ThunkAction} from "@reduxjs/toolkit";
 import {takeEvery} from "redux-saga/effects"
 import createSagaMiddleware from "redux-saga";
-import posts, {GET_POSTS, getPostsSagaWorker} from "../slices/postSlice";
+import posts, {GET_POSTS, GET_POSTS_FOR_USER, getPostsForUserSagaWorker, getPostsSagaWorker} from "../slices/postSlice";
 import comments, {GET_COMMENTS, getCommentsSagaWorker} from "../slices/commentSlice";
 import users, {GET_USERS, getUsersSagaWorker} from "../slices/userSlice";
 
@@ -11,6 +11,7 @@ function* sagasWatcher() {
     yield takeEvery(GET_POSTS, getPostsSagaWorker)
     yield takeEvery(GET_COMMENTS, getCommentsSagaWorker)
     yield takeEvery(GET_USERS, getUsersSagaWorker)
+    yield takeEvery(GET_POSTS_FOR_USER, getPostsForUserSagaWorker)
 }
 
 
