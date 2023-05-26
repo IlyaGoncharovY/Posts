@@ -3,18 +3,18 @@ import {put} from "redux-saga/effects";
 import {ResponseUserType, userAPI} from "../../api/userAPI";
 
 interface initialStateType {
-    user: ResponseUserType[]
+    users: ResponseUserType[]
 }
 
 const initialState: initialStateType = {
-    user: []
+    users: []
 }
 
 export function* getUsersSagaWorker(action: PayloadAction<number>): any {
     try {
         const res = yield userAPI.getUsers(action.payload);
         const payload = res.data;
-        yield put(getUserSuccess(payload));
+        yield put(getUsersSuccess(payload));
     } catch (e) {
         console.log(e);
     }
@@ -24,14 +24,14 @@ const UserSlice = createSlice({
     name: "users",
     initialState,
     reducers: {
-        getUserSuccess: (state, action: PayloadAction<ResponseUserType[]>) => {
-            state.user = action.payload;
+        getUsersSuccess: (state, action: PayloadAction<ResponseUserType[]>) => {
+            state.users = action.payload;
         }
     }
 })
 
 export const GET_USERS = "/userPage"
-export const getUser = createAction<number>(GET_USERS);
+export const getUsers = createAction<number>(GET_USERS);
 
-export const {getUserSuccess} = UserSlice.actions
+export const {getUsersSuccess} = UserSlice.actions
 export default UserSlice.reducer

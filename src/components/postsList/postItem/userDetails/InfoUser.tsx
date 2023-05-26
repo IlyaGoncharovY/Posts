@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {PATH} from "../../../../utils/path";
 import {useAppDispatch, useAppSelector} from "../../../../store/config/hook";
-import {getUser} from "../../../../store/slices/userSlice";
 import {ItemUser} from "./ItemUser/ItemUser";
+import {getUsers} from "../../../../store/slices/userSlice";
 
 export const InfoUser = () => {
 
     const {userId} = useParams()
-    const user = useAppSelector(state => state.user.user)
+    const users = useAppSelector(state => state.users.users)
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -18,17 +18,17 @@ export const InfoUser = () => {
     }
 
     useEffect(() => {
-        if (userId && user) {
-            dispatch(getUser(+userId))
+        if (userId && users) {
+            dispatch(getUsers(+userId))
         }
     }, [dispatch, userId])
 
-    console.log(user)
+    console.log(users)
     return (
         <div>
             InfoUser
             <div>{userId}</div>
-                {user.map((el, index) => <ItemUser key={index} user={el}/>)}
+                {users.map((el, index) => <ItemUser key={index} user={el}/>)}
             <button onClick={BackToPostsHandler}>Back to Posts</button>
         </div>
     );

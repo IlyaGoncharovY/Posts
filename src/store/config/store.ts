@@ -3,7 +3,7 @@ import {takeEvery} from "redux-saga/effects"
 import createSagaMiddleware from "redux-saga";
 import posts, {GET_POSTS, getPostsSagaWorker} from "../slices/postSlice";
 import comments, {GET_COMMENTS, getCommentsSagaWorker} from "../slices/commentSlice";
-import user, {GET_USERS, getUsersSagaWorker} from "../slices/userSlice";
+import users, {GET_USERS, getUsersSagaWorker} from "../slices/userSlice";
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -18,7 +18,7 @@ export const store = configureStore({
     reducer: {
         posts,
         comments,
-        user
+        users
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({thunk: false}).concat(sagaMiddleware)
