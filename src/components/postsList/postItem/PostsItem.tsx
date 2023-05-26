@@ -4,6 +4,8 @@ import userLogo from "../../../common/assects/logoUser.png"
 import {useAppDispatch, useAppSelector} from "../../../store/config/hook";
 import {activateCommentsWindow} from "../../../store/slices/commentSlice";
 import {CommentsForItem} from "./commentsForItem/CommentsForItem";
+import {NavLink} from "react-router-dom";
+import {PATH} from "../../../utils/path";
 
 
 interface PostsItemType {
@@ -22,11 +24,13 @@ export const PostsItem: FC<PostsItemType> = memo(({post}) => {
             activePostId === post.id ? null : post.id
         dispatch(activateCommentsWindow(newActivePostId))
     }
-
+    //  console.log(post.userId)
     return (
         <div>
             <div>
-                <img src={userLogo} alt={"logo_user"} style={{width: "60px"}}/>
+                <NavLink to={`${PATH.INFO_USER}/${post.userId}`}>
+                    <img src={userLogo} alt={"logo_user"} style={{width: "60px"}}/>
+                </NavLink>
             </div>
             <div>{post.title}</div>
             <div>{post.body}</div>
