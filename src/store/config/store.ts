@@ -2,18 +2,20 @@ import {Action, configureStore, ThunkAction} from "@reduxjs/toolkit";
 import {takeEvery} from "redux-saga/effects"
 import createSagaMiddleware from "redux-saga";
 import posts, {GET_POSTS, getPostsSagaWorker} from "../slices/postSlice";
+import comments, {GET_COMMENTS, getCommentsSagaWorker} from "../slices/commentSlice";
 
 const sagaMiddleware = createSagaMiddleware()
 
 function* sagasWatcher() {
     yield takeEvery(GET_POSTS, getPostsSagaWorker)
-    // yield takeEvery
+    yield takeEvery(GET_COMMENTS, getCommentsSagaWorker)
 }
 
 
 export const store = configureStore({
     reducer: {
-        posts
+        posts,
+        comments
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({thunk: false}).concat(sagaMiddleware)
