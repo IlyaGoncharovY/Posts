@@ -3,14 +3,16 @@ import {postsAPI, ResponseGetPostType} from "../../api/postsAPI";
 import {put} from "redux-saga/effects";
 
 interface initialStateType {
-    posts: ResponseGetPostType[]
+    // posts: ResponseGetPostType[]
     postsForUser: ResponseGetPostType[]
+    filteredPosts: ResponseGetPostType []
     postsPage: number
 }
 
 const initialState: initialStateType = {
-    posts: [],
+    // posts: [],
     postsForUser: [],
+    filteredPosts: [],
     postsPage: 1
 }
 
@@ -39,7 +41,8 @@ const PostsSlice = createSlice({
     initialState,
     reducers: {
         getPostsSuccess: (state, action: PayloadAction<ResponseGetPostType[]>) => {
-            state.posts = action.payload;
+            // state.posts = action.payload;
+            state.filteredPosts = action.payload
         },
         getPostsForUser: (state, action: PayloadAction<ResponseGetPostType[]>) => {
           state.postsForUser = action.payload
