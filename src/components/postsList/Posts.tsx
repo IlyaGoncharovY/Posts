@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "../../store/config/hook";
+import {useAppDispatch} from "../../store/config/hook";
 import {PostsItem} from "./postItem/PostsItem";
-import {getPostsAC, nextPage, prevPage} from "../../store/slices/postSlice";
+import {getPostsAC} from "../../store/slices/postSlice";
+import {SearchPost} from "./searchPost/SearchPost";
+import {usePostsForRender} from "../../utils/customHook/HookForPosts";
 
 export const Posts = () => {
 
-    const posts = useAppSelector(state => state.posts.posts)
-    const postsPage = useAppSelector(state => state.posts.postsPage)
-
-    //limit page number
-    const maxPage = 10
-    const minPage = 1
+    const {
+        filteredPostsByTitle, postsPage,
+        searchValue, handleSearch, handleClear,
+        nextPageHandler, prevPageHandler, minPage, maxPage
+    } = usePostsForRender()
 
     const dispatch = useAppDispatch()
 
@@ -18,15 +19,13 @@ export const Posts = () => {
         dispatch(getPostsAC(postsPage))
     }, [dispatch, postsPage])
 
-    const nextPageHandler = () => dispatch(nextPage(postsPage));
-    const prevPageHandler = () => dispatch(prevPage(postsPage));
-
     return (
         <div>
             <div>
                 POST MAIN
             </div>
-            {posts.map((post, index) =>
+            <SearchPost searchValue={searchValue} handleSearch={handleSearch} handleClear={handleClear}/>
+            {filteredPostsByTitle.map((post, index) =>
                 <PostsItem post={post} key={index}/>
             )}
             <div>
