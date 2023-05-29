@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch} from "../../store/config/hook";
+import {useAppDispatch, useAppSelector} from "../../store/config/hook";
 import {PostsItem} from "./postItem/PostsItem";
 import {getPostsAC} from "../../store/slices/postSlice";
 import {SearchPost} from "./searchPost/SearchPost";
 import {usePostsForRender} from "../../utils/customHook/HookForPosts";
-import {Button, Container} from "react-bootstrap";
+import {Button, Container, Spinner} from "react-bootstrap";
 
 export const Posts = () => {
 
@@ -14,6 +14,8 @@ export const Posts = () => {
         nextPageHandler, prevPageHandler, minPage, maxPage
     } = usePostsForRender()
 
+    const loading = useAppSelector(state => state.posts.loading)
+
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -22,9 +24,15 @@ export const Posts = () => {
 
     return (
         <div>
-            <SearchPost searchValue={searchValue} handleSearch={handleSearch} handleClear={handleClear}/>
-            {filteredPostsByTitle.map((post, index) =>
-                <PostsItem post={post} key={index}/>
+            <SearchPost searchValue={searchValue} handleSearch={handleSearch} handleClear={handleClear} />
+            {loading ? (
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
+            ) : (
+                filteredPostsByTitle.map((post, index) =>
+                    <PostsItem post={post} key={index} />
+                )
             )}
             <Container className={"pt-2"}>
                 <Button variant={"outline-secondary"}
