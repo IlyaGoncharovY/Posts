@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+import {CloseButton, Form, InputGroup} from "react-bootstrap";
 
 interface SearchPostType {
     searchValue: string
@@ -9,15 +10,17 @@ interface SearchPostType {
 export const SearchPost: FC<SearchPostType> = ({searchValue, handleSearch, handleClear}) => {
 
     return (
-        <div>
-            SearchPost
-            <input
+        <InputGroup className="mb-3 pt-2">
+            <InputGroup.Text id="basic-addon1">SearchPost</InputGroup.Text>
+            <Form.Control
                 placeholder="enter post"
+                aria-label="enter post"
+                aria-describedby="basic-addon1"
                 value={searchValue}
                 onChange={handleSearch}
             />
-            <button onClick={handleClear}>clear</button>
-        </div>
+            <CloseButton onClick={handleClear} className={"m-md-2"}/>
+        </InputGroup>
     );
 };
 

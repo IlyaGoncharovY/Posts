@@ -6,6 +6,7 @@ import {activateCommentsWindow} from "../../../store/slices/commentSlice";
 import {CommentsForItem} from "./commentsForItem/CommentsForItem";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../utils/path";
+import {Button, Card} from "react-bootstrap";
 
 
 interface PostsItemType {
@@ -27,15 +28,21 @@ export const PostsItem: FC<PostsItemType> = memo(({post}) => {
     //  console.log(post.userId)
     return (
         <div>
-            <div>
-                <NavLink to={`${PATH.INFO_USER}/${post.userId}`}>
-                    <img src={userLogo} alt={"logo_user"} style={{width: "60px"}}/>
-                </NavLink>
-            </div>
-            <div>{post.title}</div>
-            <div>{post.body}</div>
-            <button onClick={activateWindowHandler}>watch comments</button>
-            {activePostId === post.id && <CommentsForItem postId={post.id}/>}
+            <Card>
+                <Card.Header>
+                    <NavLink to={`${PATH.INFO_USER}/${post.userId}`}>
+                        <img src={userLogo} alt={"logo_user"} style={{width: "60px"}}/>
+                    </NavLink>
+                </Card.Header>
+                <Card.Body>
+                    <Card.Title>{post.title}</Card.Title>
+                    <Card.Text>
+                        {post.body}
+                    </Card.Text>
+                    <Button variant="outline-dark" onClick={activateWindowHandler}>Watch comments</Button>
+                    {activePostId === post.id && <CommentsForItem postId={post.id}/>}
+                </Card.Body>
+            </Card>
         </div>
     );
 });

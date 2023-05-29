@@ -4,6 +4,7 @@ import {PostsItem} from "./postItem/PostsItem";
 import {getPostsAC} from "../../store/slices/postSlice";
 import {SearchPost} from "./searchPost/SearchPost";
 import {usePostsForRender} from "../../utils/customHook/HookForPosts";
+import {Button, Container} from "react-bootstrap";
 
 export const Posts = () => {
 
@@ -21,17 +22,16 @@ export const Posts = () => {
 
     return (
         <div>
-            <div>
-                POST MAIN
-            </div>
             <SearchPost searchValue={searchValue} handleSearch={handleSearch} handleClear={handleClear}/>
             {filteredPostsByTitle.map((post, index) =>
                 <PostsItem post={post} key={index}/>
             )}
-            <div>
-                <button onClick={prevPageHandler} disabled={postsPage === minPage}>prev</button>
-                <button onClick={nextPageHandler} disabled={postsPage === maxPage}>next</button>
-            </div>
+            <Container className={"pt-2"}>
+                <Button variant={"outline-secondary"}
+                        onClick={prevPageHandler} disabled={postsPage === minPage}>Prev</Button>{' '}
+                <Button variant={"outline-secondary"}
+                        onClick={nextPageHandler} disabled={postsPage === maxPage}>Next</Button>
+            </Container>
         </div>
     );
 };

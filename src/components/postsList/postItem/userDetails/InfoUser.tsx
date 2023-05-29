@@ -4,6 +4,7 @@ import {PATH} from "../../../../utils/path";
 import {useAppDispatch, useAppSelector} from "../../../../store/config/hook";
 import {UserItem} from "./ItemUser/UserItem";
 import {getUsersAC} from "../../../../store/slices/userSlice";
+import {Button, Container} from "react-bootstrap";
 
 export const InfoUser = () => {
 
@@ -23,14 +24,12 @@ export const InfoUser = () => {
         }
     }, [dispatch, userId])
 
-    console.log(users)
+    // console.log(users)
     return (
-        <div>
-            InfoUser
-            <div>{userId}</div>
-            <button onClick={BackToPostsHandler}>Back to Posts</button>
+        <Container className={"mt-2"}>
+            <Button variant="outline-secondary" onClick={BackToPostsHandler}>Back to Posts</Button>
             {users.map((user, index) => <UserItem key={index} user={user} userId={userId}/>)}
-        </div>
+        </Container>
     );
 };
 
