@@ -7,7 +7,7 @@ import meLogo1 from "../../common/assects/meLogo.jpg"
 
 export const Header = () => {
     return (
-        <Navbar bg="dark" variant="light" expand="lg">
+        <Navbar bg="dark" variant="light" expand="lg" className={"sticky-top"}>
             <Container>
                 <Navbar.Brand>
                     <img src={meLogo1} alt="Logo" style={{width: "40px", borderRadius: "5px"}}/>
@@ -37,7 +37,6 @@ export const Header = () => {
                                     ABOUT_ME
                                 </NavLink>
                             </Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Navbar.Collapse>
