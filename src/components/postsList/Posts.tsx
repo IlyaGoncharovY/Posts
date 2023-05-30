@@ -5,6 +5,7 @@ import {getPostsAC} from "../../store/slices/postSlice";
 import {SearchPost} from "./searchPost/SearchPost";
 import {usePostsForRender} from "../../utils/customHook/HookForPosts";
 import {Button, Container, Spinner} from "react-bootstrap";
+import {ErrorMessage} from "../../common/components/ErrorMessage";
 
 export const Posts = () => {
 
@@ -15,6 +16,7 @@ export const Posts = () => {
     } = usePostsForRender()
 
     const loading = useAppSelector(state => state.posts.loading)
+    const error = useAppSelector(state => state.error.error)
 
     const dispatch = useAppDispatch()
 
@@ -24,14 +26,15 @@ export const Posts = () => {
 
     return (
         <div>
-            <SearchPost searchValue={searchValue} handleSearch={handleSearch} handleClear={handleClear} />
+            {error && <ErrorMessage error={error}/>}
+            <SearchPost searchValue={searchValue} handleSearch={handleSearch} handleClear={handleClear}/>
             {loading ? (
                 <Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
                 </Spinner>
             ) : (
                 filteredPostsByTitle.map((post, index) =>
-                    <PostsItem post={post} key={index} />
+                    <PostsItem post={post} key={index}/>
                 )
             )}
             <Container className={"pt-2"}>

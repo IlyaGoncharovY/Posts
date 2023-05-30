@@ -1,7 +1,8 @@
 import {createAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {postsAPI, ResponseGetPostType} from "../../api/postsAPI";
 import {put, delay} from "redux-saga/effects";
-// import {delay} from "@reduxjs/toolkit/dist/utils";
+import {setError} from "./errorSlice";
+import {AxiosError} from "axios";
 
 interface initialStateType {
     // posts: ResponseGetPostType[]
@@ -28,7 +29,8 @@ export function* getPostsSagaWorker(action: PayloadAction<number>): any {
         const payload = res.data;
         yield put(getPostsSuccess(payload));
     } catch (e) {
-        console.log(e);
+        const error = e as Error | AxiosError<{ error: string }>
+        yield put(setError(error.message))
     } finally {
         yield put(setLoading(false))
     }
@@ -43,7 +45,8 @@ export function* getPostsForUserSagaWorker(action: PayloadAction<number>): any {
         const payload = res.data;
         yield put(getPostsForUser(payload));
     } catch (e) {
-        console.log(e);
+        const error = e as Error | AxiosError<{ error: string }>
+        yield put(setError(error.message))
     } finally {
         yield put(setLoading(false))
     }
