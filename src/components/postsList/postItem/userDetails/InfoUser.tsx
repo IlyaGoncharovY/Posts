@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {PATH} from "../../../../utils/path";
+import {PATH} from "../../../../utils/path/path";
 import {useAppDispatch, useAppSelector} from "../../../../store/config/hook";
 import {UserItem} from "./ItemUser/UserItem";
 import {getUsersAC} from "../../../../store/slices/userSlice";

@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {PATH} from "../../utils/path";
+import {PATH} from "../../utils/path/path";
 import {Container, Dropdown, Navbar} from "react-bootstrap";
 import meLogo1 from "../../common/assects/meLogo.jpg"
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import './App.css';
 import {Posts} from "./components/postsList/Posts";
-import {PATH} from "./utils/path";
+import {PATH} from "./utils/path/path";
 import {AboutMe} from "./components/aboutMe/AboutMe";
 import {InfoUser} from "./components/postsList/postItem/userDetails/InfoUser";
 import {Header} from "./components/header/Header";

@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../../store/config/hook";
 import {activateCommentsWindow} from "../../../store/slices/commentSlice";
 import {CommentsForItem} from "./commentsForItem/CommentsForItem";
 import {NavLink} from "react-router-dom";
-import {PATH} from "../../../utils/path";
+import {PATH} from "../../../utils/path/path";
 import {Button, Card} from "react-bootstrap";
 
 
