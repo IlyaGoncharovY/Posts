@@ -6,6 +6,9 @@ export const commentsAPI = {
     }
 }
 
+/**
+ * base type for comment
+ */
 export type ResponseGetCommentsType = {
 	postId: number;
 	id: number;

@@ -14,6 +14,9 @@ export const postsAPI = {
 	}
 }
 
+/**
+ * base type for post
+ */
 export type ResponseGetPostType = {
     userId: number
     id: number

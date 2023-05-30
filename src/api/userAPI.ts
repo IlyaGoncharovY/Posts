@@ -6,6 +6,9 @@ export const userAPI = {
     }
 }
 
+/**
+ * base type for user
+ */
 export type ResponseUserType = {
 	id: number;
 	name: string;
