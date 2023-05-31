@@ -5,51 +5,42 @@ import {setError} from "./errorSlice";
 import {AxiosError} from "axios";
 
 interface initialStateType {
-    // posts: ResponseGetPostType[]
-    postsForUser: ResponseGetPostType[]
-    filteredPosts: ResponseGetPostType []
+    posts: ResponseGetPostType[]
     postsPage: number
     loading: boolean
 }
 
 const initialState: initialStateType = {
-    // posts: [],
-    postsForUser: [],
-    filteredPosts: [],
+    posts: [],
     postsPage: 1,
     loading: false
 }
 
-export function* getPostsSagaWorker(action: PayloadAction<number>): any {
+export function* fetchDataSagaWorker<T>(
+    action: PayloadAction<number>,
+    apiMethod: (param: number) => Promise<{ data: T }>
+): any {
     try {
-        yield put(setLoading(true))
-        yield delay(500)
+        yield put(setLoading(true));
+        yield delay(500);
 
-        const res = yield postsAPI.getPosts(action.payload);
+        const res = yield apiMethod(action.payload);
         const payload = res.data;
         yield put(getPostsSuccess(payload));
     } catch (e) {
-        const error = e as Error | AxiosError<{ error: string }>
-        yield put(setError(error.message))
+        const error = e as Error | AxiosError<{ error: string }>;
+        yield put(setError(error.message));
     } finally {
-        yield put(setLoading(false))
+        yield put(setLoading(false));
     }
 }
 
-export function* getPostsForUserSagaWorker(action: PayloadAction<number>): any {
-    try {
-        yield put(setLoading(true))
-        yield delay(500)
+export function* getPostsSagaWorker(action: PayloadAction<number>): any {
+    yield fetchDataSagaWorker(action, postsAPI.getPosts);
+}
 
-        const res = yield postsAPI.getPostsForUser(action.payload);
-        const payload = res.data;
-        yield put(getPostsForUser(payload));
-    } catch (e) {
-        const error = e as Error | AxiosError<{ error: string }>
-        yield put(setError(error.message))
-    } finally {
-        yield put(setLoading(false))
-    }
+export function* getPostsForUserSagaWorker(action: PayloadAction<number>): any {
+    yield fetchDataSagaWorker(action, postsAPI.getPostsForUser);
 }
 
 const PostsSlice = createSlice({
@@ -57,11 +48,7 @@ const PostsSlice = createSlice({
     initialState,
     reducers: {
         getPostsSuccess: (state, action: PayloadAction<ResponseGetPostType[]>) => {
-            // state.posts = action.payload;
-            state.filteredPosts = action.payload
-        },
-        getPostsForUser: (state, action: PayloadAction<ResponseGetPostType[]>) => {
-            state.postsForUser = action.payload
+            state.posts = action.payload
         },
         nextPage: (state, action: PayloadAction<number>) => {
             state.postsPage = action.payload += 1
@@ -83,5 +70,5 @@ export const getPostsAC = createAction<number>(GET_POSTS);
 export const GET_POSTS_FOR_USER = "/postsForUser"
 export const getPostsForUserAC = createAction<number>(GET_POSTS_FOR_USER)
 
-export const {getPostsSuccess, getPostsForUser, nextPage, prevPage, setLoading} = PostsSlice.actions
+export const {getPostsSuccess, nextPage, prevPage, setLoading} = PostsSlice.actions
 export default PostsSlice.reducer

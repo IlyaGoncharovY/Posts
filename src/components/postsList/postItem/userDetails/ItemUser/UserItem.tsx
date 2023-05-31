@@ -12,7 +12,7 @@ interface ItemUserType {
 
 export const UserItem: FC<ItemUserType> = ({user, userId}) => {
 
-    const postsForUser = useAppSelector(state => state.posts.postsForUser)
+    const postsForUser = useAppSelector(state => state.posts.posts)
 
     const dispatch = useAppDispatch()
 
@@ -22,6 +22,7 @@ export const UserItem: FC<ItemUserType> = ({user, userId}) => {
         }
     }, [dispatch, userId])
 
+    // console.log(postsForUser)
     return (
         <div>
             <ListGroup className={"pt-2"}>

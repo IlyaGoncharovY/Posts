@@ -5,7 +5,7 @@ import {getPostsAC, nextPage, prevPage} from "../../store/slices/postSlice";
 export const usePostsForRender = () => {
 
     // const posts = useAppSelector(state => state.posts.posts)
-    const filteredPosts = useAppSelector(state => state.posts.filteredPosts)
+    const filteredPosts = useAppSelector(state => state.posts.posts)
     const postsPage = useAppSelector(state => state.posts.postsPage)
 
     //limit page number
